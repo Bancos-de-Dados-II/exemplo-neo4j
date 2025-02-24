@@ -12,8 +12,8 @@ async function main(){
     );
 
     await driver.executeQuery(
-        'CREATE (:Pessoa{nome:$nome, email:$email})',
-        {nome: "Pedro", email:"pedro@gmail.com"}
+        'MATCH (p1:Pessoa{email:$email1}) MATCH(p2:Pessoa{email:$email2}) CREATE (p1)-[:AMIGO]->(p2)',
+        {email1: "joao@gmail.com", email2:"maria@gmail.com"}
     ).then(records => {
         console.log(records.summary.counters._stats);
     }).catch(error => {
