@@ -12,11 +12,10 @@ async function main(){
     );
 
     await driver.executeQuery(
-        'MATCH (p:Pessoa)-[:AMIGO]->(p2) WHERE p.email=$email RETURN p2.nome, p2.email',
-        {email:'joao@gmail.com'}
+        'MATCH (p:Pessoa) WHERE elementid(p) = $id DETACH DELETE p',
+        {id:'4:095eb451-d05c-4805-8929-0d26483a5fff:4'}
     ).then(records => {
-        console.log(records.records);
-    }).catch(error => {
+        console.log(records.summary.counters._stats)}).catch(error => {
         console.log(error);
     });
 }
